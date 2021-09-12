@@ -39,7 +39,7 @@ CREATE TABLE "time_log"
     "id"      serial  NOT NULL,
     "user_id" integer NOT NULL,
     "game_id" integer NOT NULL,
-    "hours"   integer NOT NULL,
+    "hours"   float4 NOT NULL,
     "date"    DATE    NOT NULL,
     CONSTRAINT "time_log_pk" PRIMARY KEY ("id")
 ) WITH (
