@@ -46,8 +46,8 @@
                 {{ game.name }}
               </v-card-title>
 
-                <v-card-text>
-              {{ gamesDetails.description_raw }}
+              <v-card-text>
+                {{ gamesDetails.description_raw}}
               </v-card-text>
 
               <v-divider></v-divider>
@@ -70,7 +70,7 @@
       <v-pagination
           v-model="page"
           :length="totalPages"
-          :total-visible="7"
+          :total-visible="10"
           color="red"
           @input="handlePageChange"
       ></v-pagination>
@@ -79,15 +79,13 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "Games",
   data() {
     return {
       dialog: [],
-      totalPages: 15,
-      gamesList: [],
       gamesDetails: [],
       gameId: 1,
       searchResult: [],
@@ -97,26 +95,35 @@ export default {
   },
   methods: {
     ...mapActions({
-      getGamesList: 'main/getGamesList',
+      getGamesList: 'main/loadGamesList',
       getGamesDetails: 'main/getGamesDetails',
       searchGame: 'main/searchGame',
     }),
-    handlePageChange(value) {
+    async handlePageChange(value) {
       this.page = value;
-      this.gamesList = this.getGamesList(this.page)
+     await this.getGamesList(this.page)
     },
-    handleGameId(id) {
+    async handleGameId(id) {
       this.gameId = id
-      this.gamesDetails = this.getGamesDetails(this.gameId)
+      this.gamesDetails = await this.getGamesDetails(this.gameId)
     },
     handleSearch: function (event) {
       this.searchTitle = event.target.value
     }
   },
   async mounted() {
-    this.gamesList = await this.getGamesList(this.page)
+   await this.getGamesList(this.page)
     this.gamesDetails = await this.getGamesDetails(this.gameId)
     this.search = await this.searchGame(this.searchTitle)
+  },
+  computed: {
+    ...mapGetters ({
+      gamesList: 'main/getGamesList',
+      gamesCount: 'main/getGamesCount',
+    }),
+    totalPages (){
+      return (~~(this.gamesCount/8)+ 1)
+    }
   },
 }
 </script>

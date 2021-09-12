@@ -83,13 +83,14 @@ export async function getLastUserGames({}, id) {
         })
 
 }
-// eslint-disable-next-line no-empty-pattern
-export async function getGamesList({},page) {
+
+export async function loadGamesList({state},page) {
     return axios
-        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&page=${await page}&page_size=8`)
+        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&page=${page}&page_size=8`)
         .then(res => {
             console.log(res.data.results)
-            return res.data.results
+            state.gamesList = res.data.results
+            state.gamesCount = res.data.count
         })
 }
 // eslint-disable-next-line no-empty-pattern
@@ -108,5 +109,14 @@ export async function searchGame ({},searchItem){
         .then(res => {
             console.log(res.data)
             return res.data
+        })
+}
+export async function loadReleasesList ({state},startDate,endDate){
+    return axios
+        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&dates=${startDate},${endDate}`)
+        .then(res => {
+            console.log(res.data.results)
+            state.releasesList = res.data.results
+            state.releasesCount = res.data.count
         })
 }

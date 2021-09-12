@@ -12,7 +12,7 @@
     ></v-img>
     <v-spacer></v-spacer>
     <v-btn class="mr-2" to="/profile" text large rounded>Profile</v-btn>
-    <v-btn class="mr-2" @click="twitchAuthentication" to="/games" text large rounded>Games</v-btn>
+    <v-btn class="mr-2" to="/games" text large rounded>Games</v-btn>
     <v-btn class="mr-2" to="/releases" text large rounded>Releases</v-btn>
     <v-btn class="mr-2" @click="logOut" text large rounded>LogOut</v-btn>
   </v-app-bar>
@@ -36,9 +36,6 @@ export default {
     ...mapActions({
       logout: "main/logout"
     }),
-    twitchAuthentication(){
-      this.twitchAuthentication()
-    },
     logOut() {
       this.logout({})
     },
