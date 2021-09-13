@@ -7,6 +7,8 @@ import { Statistics } from './models/interfaces/statistics.interface';
 import { TimeLog } from './models/interfaces/time-log.interface';
 import { TimeLogDto } from './models/dtos/time-log.dto';
 import {TimeLogHistory} from "./models/interfaces/time-log-history.interface";
+import {UserEntity} from "../user/models/user.entity";
+import {GameEntity} from "../game/models/game.entity";
 
 @Injectable()
 export class TimeLogService {
@@ -77,7 +79,21 @@ export class TimeLogService {
   }
 
   async logTime(timeLogDto: TimeLogDto): Promise<TimeLog> {
-    return this.timeLogRepository.save(timeLogDto);
+    const timeLogEntity = new TimeLogEntity();
+    timeLogEntity.user = new UserEntity();
+    timeLogEntity.user.id = timeLogDto.userId;
+    timeLogEntity.game = new GameEntity();
+    timeLogEntity.game.id = timeLogDto.gameId;
+    timeLogEntity.hours = timeLogDto.hours;
+    timeLogEntity.date = timeLogDto.date;
+    return this.timeLogRepository.save(timeLogEntity).then(res => {
+      return {
+        id: res.id,
+        userId: res.user.id,
+        gameId: res.game.id,
+        date: res.date
+      }
+    });
   }
 
   async getLogHistory(id: number): Promise<TimeLogHistory[]> {

@@ -1,4 +1,4 @@
-import { IsDate, IsInt, IsNumber, IsPositive } from 'class-validator';
+import { IsInt, IsNumber, IsPositive, IsNotEmpty, IsISO8601 } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class TimeLogDto {
@@ -17,7 +17,7 @@ export class TimeLogDto {
   @IsPositive()
   hours: number;
 
-  @Type(() => Date)
-  @IsDate()
+  @IsNotEmpty()
+  @IsISO8601()
   date: Date;
 }
