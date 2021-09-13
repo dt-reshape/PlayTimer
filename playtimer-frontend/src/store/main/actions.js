@@ -28,7 +28,7 @@ axios.interceptors.request.use(function (request) {
 
 export function signUp({dispatch}, userCredentials) {
     return axios.post('user', userCredentials).then(() => {
-            dispatch("login", userCredentials)
+        dispatch("login", userCredentials)
     })
 }
 
@@ -84,17 +84,18 @@ export async function getLastUserGames({}, id) {
 
 }
 
-export async function loadGamesList({state},page) {
+export async function loadGamesList({state}, {page, search}) {
     return axios
-        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&page=${page}&page_size=8`)
+        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&page=${page}&page_size=8${search ? '&search=' + search : ''}`)
         .then(res => {
-            console.log(res.data.results)
+            console.log(res.data)
             state.gamesList = res.data.results
             state.gamesCount = res.data.count
         })
 }
+
 // eslint-disable-next-line no-empty-pattern
-export async function getGamesDetails({},gameId) {
+export async function getGamesDetails({}, gameId) {
     return axios
         .get(`https://api.rawg.io/api/games/${gameId}?key=c6c782578cf746279aeec0e1761bd257`)
         .then(res => {
@@ -102,21 +103,31 @@ export async function getGamesDetails({},gameId) {
             return res.data
         })
 }
-// eslint-disable-next-line no-empty-pattern
-export async function searchGame ({},searchItem){
+
+export async function loadReleasesList({state}, {page, startDate, endDate}) {
     return axios
-        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&search=${searchItem}`)
-        .then(res => {
-            console.log(res.data)
-            return res.data
-        })
-}
-export async function loadReleasesList ({state},startDate,endDate){
-    return axios
-        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&dates=${startDate},${endDate}`)
+        .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&dates=${startDate},${endDate}&ordering=released&page=${page}`)
         .then(res => {
             console.log(res.data.results)
             state.releasesList = res.data.results
             state.releasesCount = res.data.count
         })
+}
+
+// eslint-disable-next-line no-empty-pattern
+export function getGame({}, apiIdent) {
+    return axios
+        .get('/game/' + apiIdent)
+        .then(res => {
+            console.log(res.data)
+            return res.data.id
+        })
+}
+
+// eslint-disable-next-line no-empty-pattern
+export function track({}, {userId, gameId, hours, date}) {
+    return axios
+        .post('time-log', {userId, gameId, hours, date})
+        .then(() => {
+    })
 }

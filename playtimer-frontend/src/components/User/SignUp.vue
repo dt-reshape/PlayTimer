@@ -110,6 +110,7 @@ export default {
       signUp: "main/signUp"
     }),
     handleSubmit() {
+      this.$v.$touch()
       this.signUp({
         email: this.email,
         login: this.username,

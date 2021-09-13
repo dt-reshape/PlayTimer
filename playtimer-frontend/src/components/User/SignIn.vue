@@ -56,6 +56,7 @@ export default {
       login: "main/login"
     }),
     handleSubmit() {
+      this.$v.$touch()
       this.login({
         login: this.username,
         password: this.password,
