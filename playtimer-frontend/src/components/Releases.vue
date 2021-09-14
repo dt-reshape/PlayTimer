@@ -125,7 +125,7 @@ export default {
       releasesCount: 'main/getReleasesCount',
     }),
     totalPages() {
-      return (~~(this.gamesCount / 20) + (this.gamesCount % 20 == 0 ? 0 : 1))
+      return (~~(this.releasesCount / 20) + (this.releasesCount % 20 == 0 ? 0 : 1))
     },
   }
 }
