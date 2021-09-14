@@ -40,7 +40,7 @@
         </v-form>
         <v-card-actions style="justify-content: space-between">
           <v-btn @click="onClick">
-            Cancel
+            Close
           </v-btn>
           <v-btn
               @click="handleTrack"
@@ -50,6 +50,24 @@
         </v-card-actions>
       </v-card>
     </v-overlay>
+    <v-snackbar
+        v-model="snackbarSuccess"
+        color="success"
+        timeout="1500"
+        bottom
+    >
+      Successfully tracked
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackbarSuccess = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -66,6 +84,7 @@ export default {
       moment: moment,
       dialog: false,
       hours: '',
+      snackbarSuccess: false,
     }
   },
   validations: {
@@ -88,6 +107,8 @@ export default {
         hours: +this.hours,
         date: new Date()
       })
+      this.snackbarSuccess = true
+      this.dialog = false
     }
   },
   computed: {
