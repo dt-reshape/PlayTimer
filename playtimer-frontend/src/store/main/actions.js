@@ -32,26 +32,29 @@ export function signUp({dispatch}, userCredentials) {
     })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export function login({}, {login, password}) {
-    return axios.post('user/login', {login, password}).then(async res => {
+export function login(_, {login, password}) {
+    return axios
+        .post('user/login', {login, password})
+        .then(async res => {
         localStorage.setItem("jwt", res.data?.accessToken)
         localStorage.setItem("id", res.data?.id)
         console.log(router)
         await router.push("/")
     })
+        .catch(error => {
+            console.log(error.response)
+            return error.response
+        })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function logout({}, {}) {
+export async function logout() {
     localStorage.removeItem("jwt")
     localStorage.removeItem("id")
     console.log('logout')
     await router.push("/login")
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function getUserData({}, id) {
+export async function getUserData(_, id) {
     return axios
         .get("user/profile/" + id)
         .then(res => {
@@ -79,6 +82,7 @@ export async function getUserStatistics({}, id) {
 export async function getLastUserGames({}, id) {
     return axios
         .get(`/time-log/history/${id}`).then(res => {
+            console.log(res.data)
             return res.data
         })
 

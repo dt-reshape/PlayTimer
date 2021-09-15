@@ -6,15 +6,15 @@
           <v-col md="6" style="flex-direction: row">
             <v-row justify="space-between">
               <v-card color="red" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center">{{ numberOfGames }}</v-card-subtitle>
+                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{ numberOfGames }}</v-card-subtitle>
                 <v-card-title class="justify-center">Games</v-card-title>
               </v-card>
               <v-card color="blue" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center">{{ hoursPlayed }}</v-card-subtitle>
+                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{ hoursPlayed }}</v-card-subtitle>
                 <v-card-title class="justify-center">Hours</v-card-title>
               </v-card>
               <v-card color="green" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center">{{~~(hoursPlayed/24)}}</v-card-subtitle>
+                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{~~(hoursPlayed/24)}}</v-card-subtitle>
                 <v-card-title class="justify-center">Days</v-card-title>
               </v-card>
             </v-row>
@@ -51,18 +51,10 @@
                     :key="track.title"
                 >
 
-                  <p>You spend {{track.hours > 1 ? track.hours + ' hours' : 1 +' hour'}} on {{track.apiIdent}}</p>
+                  <p>You spend {{track.hours > 1 ? track.hours + ' hours' : 1 +' hour'}} on {{gamesName[index] ? gamesName[index].name : ''}}</p>
                   <v-list-item-content align="right">
-                    <v-list-item-title v-html="track.apiIdent"></v-list-item-title>
-                    <v-list-item-subtitle v-html="track.hours"></v-list-item-subtitle>
                     <p>{{moment(track.date).format('YYYY-MM-DD')}}</p>
                   </v-list-item-content>
-                  <v-list-item-avatar>
-                    <!--v-img :src="track.avatar"></v-img-->
-                    <v-avatar>
-                      <span>A</span>
-                    </v-avatar>
-                  </v-list-item-avatar>
                 </v-list-item>
                 <v-divider :key="track.id" v-if="index + 1 < lastGames.length"></v-divider>
               </template>
@@ -147,7 +139,8 @@ export default {
       getUserData: 'main/getUserData',
       getUserCalendar: 'main/getUserCalendar',
       getUserStatistics: 'main/getUserStatistics',
-      getLastUserGames: 'main/getLastUserGames'
+      getLastUserGames: 'main/getLastUserGames',
+      getGamesDetails: 'main/getGamesDetails',
     }),
   },
   data() {
@@ -163,7 +156,8 @@ export default {
       login: null,
       calendar: [],
       profilePic: null,
-      dateNow: moment().format('YYYY-MM-DD')
+      dateNow: moment().format('YYYY-MM-DD'),
+      gamesName: [],
     };
   },
   async mounted() {
@@ -175,6 +169,9 @@ export default {
     });
     ({hours: this.hoursPlayed, games: this.numberOfGames} = await this.getUserStatistics(this.id))
     this.lastGames = await this.getLastUserGames(this.id)
+    for(let game of this.lastGames) {
+      this.gamesName.push(await this.getGamesDetails(game.apiIdent))
+    }
   },
 }
 
