@@ -1,14 +1,16 @@
-export function getGamesList (state){
+export function getGamesList(state) {
     return state.gamesList
 }
-export function getGamesCount (state){
+
+export function getGamesCount(state) {
     return state.gamesCount
 }
 
-export function getReleasesList(state){
+export function getReleasesList(state) {
     return state.releasesList
 }
-export function getReleasesCount (state){
+
+export function getReleasesCount(state) {
     return state.releasesCount
 }
 

@@ -1,8 +1,8 @@
 <template>
-  <v-app-bar app color="white" >
+  <v-app-bar app color="white">
     <v-img
         @click="logoRouteLink"
-        onmouseover = "this.style.cursor = 'pointer'"
+        onmouseover="this.style.cursor = 'pointer'"
         contain
         :aspect-ratio="16/9"
         :src="require('@/assets/logo.png')"
@@ -26,26 +26,22 @@ import {mapActions} from "vuex";
 export default {
   name: 'AppHeader',
   data() {
-    return {
-    }
+    return {}
   },
   methods: {
-    ...mapMutations({
-
-    }),
+    ...mapMutations({}),
     ...mapActions({
       logout: "main/logout"
     }),
     logOut() {
       this.logout({})
     },
-    logoRouteLink(){
+    logoRouteLink() {
       this.$router.push('/profile');
     }
   },
 
-computed: {
-  }
+  computed: {}
 }
 
 </script>

@@ -27,7 +27,7 @@
         ></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn  @click="handleSubmit" color="info">Sign In</v-btn>
+        <v-btn @click="handleSubmit" color="info">Sign In</v-btn>
         <v-spacer></v-spacer>
         <slot/>
       </v-card-actions>
@@ -64,13 +64,13 @@ export default {
     }
   },
   computed: {
-    usernameErrors () {
+    usernameErrors() {
       const errors = []
       if (!this.$v.username.$dirty) return errors
       !this.$v.username.required && errors.push('Required.')
       return errors
     },
-    passwordErrors () {
+    passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) return errors
       !this.$v.password.required && errors.push('Required.')

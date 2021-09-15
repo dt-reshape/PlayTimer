@@ -13,14 +13,11 @@ import {mapMutations} from "vuex";
 
 export default {
   name: 'AppFooter',
-  data(){
-    return {
-
-    }
+  data() {
+    return {}
   },
   methods: {
-    ...mapMutations({
-    })
+    ...mapMutations({})
   },
 }
 </script>

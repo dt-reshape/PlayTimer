@@ -16,16 +16,13 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   name: 'MainLayout',
   data: () => ({
-    items: [
-    ],
+    items: [],
   }),
   methods: {
-    ...mapMutations({
-    }),
+    ...mapMutations({}),
   },
   computed: {
-    ...mapGetters({
-    }),
+    ...mapGetters({}),
 
   },
   components: {
@@ -36,7 +33,6 @@ export default {
 
   },
   updated() {
-    console.log(this.$router.currentRoute)
   }
 }
 </script>

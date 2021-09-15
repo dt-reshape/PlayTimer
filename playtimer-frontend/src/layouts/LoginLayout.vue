@@ -8,8 +8,9 @@
 
 <script>
 import LoginView from '@/views/LoginView'
+
 export default {
-name: "LoginLayout.vue",
+  name: "LoginLayout.vue",
   components: {LoginView}
 }
 </script>

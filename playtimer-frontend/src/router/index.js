@@ -31,10 +31,10 @@ const routes = [
         ]
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: () => import('@/layouts/LoginLayout'),
-      beforeEnter: checkAuthStatus
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/layouts/LoginLayout'),
+        beforeEnter: checkAuthStatus
     },
     {
         path: '*',
@@ -55,11 +55,13 @@ function authGuard(to, from, next) {
         next('/login')
     }
 }
-function checkAuthStatus (to,from,next){
+
+function checkAuthStatus(to, from, next) {
     if (localStorage.getItem('jwt')) {
         next('/')
     } else {
         next()
     }
 }
+
 export default router

@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    Error 404
+  <v-container fluid>
+    <h1>Error 404</h1>
   </v-container>
 </template>
 

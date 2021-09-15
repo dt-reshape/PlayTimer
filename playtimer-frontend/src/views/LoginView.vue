@@ -14,12 +14,13 @@
 <script>
 import SignIn from "@/components/User/SignIn";
 import SignUp from "@/components/User/SignUp";
+
 export default {
-name: "LoginView.vue",
+  name: "LoginView.vue",
   data() {
-  return {
-    isLogin: false
-  }
+    return {
+      isLogin: false
+    }
   },
   methods: {
     changeType() {

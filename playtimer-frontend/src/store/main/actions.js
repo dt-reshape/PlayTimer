@@ -6,12 +6,8 @@ axios.defaults.baseURL = 'http://localhost:3000/api/'
 
 
 axios.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
     return response;
 }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
     if (error.response && (401 === error.response.status || 406 === error.response.status)) {
         Store.dispatch('main/logout')
     }
@@ -36,13 +32,11 @@ export function login(_, {login, password}) {
     return axios
         .post('user/login', {login, password})
         .then(async res => {
-        localStorage.setItem("jwt", res.data?.accessToken)
-        localStorage.setItem("id", res.data?.id)
-        console.log(router)
-        await router.push("/")
-    })
+            localStorage.setItem("jwt", res.data?.accessToken)
+            localStorage.setItem("id", res.data?.id)
+            await router.push("/")
+        })
         .catch(error => {
-            console.log(error.response)
             return error.response
         })
 }
@@ -50,7 +44,6 @@ export function login(_, {login, password}) {
 export async function logout() {
     localStorage.removeItem("jwt")
     localStorage.removeItem("id")
-    console.log('logout')
     await router.push("/login")
 }
 
@@ -62,27 +55,23 @@ export async function getUserData(_, id) {
         });
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function getUserCalendar({}, {id, dateNow, fromDate}) {
+export async function getUserCalendar(_, {id, dateNow, fromDate}) {
     return axios
         .get(`/time-log/report/${id}?fromDate=${fromDate}&toDate=${dateNow}`).then(res => {
             return res.data
         })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function getUserStatistics({}, id) {
+export async function getUserStatistics(_, id) {
     return axios
         .get(`/time-log/statistics/${id}`).then(res => {
             return res.data
         })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function getLastUserGames({}, id) {
+export async function getLastUserGames(_, id) {
     return axios
         .get(`/time-log/history/${id}`).then(res => {
-            console.log(res.data)
             return res.data
         })
 
@@ -92,18 +81,15 @@ export async function loadGamesList({state}, {page, search}) {
     return axios
         .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&page=${page}&page_size=8${search ? '&search=' + search : ''}`)
         .then(res => {
-            console.log(res.data)
             state.gamesList = res.data.results
             state.gamesCount = res.data.count
         })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export async function getGamesDetails({}, gameId) {
+export async function getGamesDetails(_, gameId) {
     return axios
         .get(`https://api.rawg.io/api/games/${gameId}?key=c6c782578cf746279aeec0e1761bd257`)
         .then(res => {
-            console.log(res.data)
             return res.data
         })
 }
@@ -112,26 +98,22 @@ export async function loadReleasesList({state}, {page, startDate, endDate}) {
     return axios
         .get(`https://api.rawg.io/api/games?key=c6c782578cf746279aeec0e1761bd257&dates=${startDate},${endDate}&ordering=released&page=${page}`)
         .then(res => {
-            console.log(res.data.results)
             state.releasesList = res.data.results
             state.releasesCount = res.data.count
         })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export function getGame({}, apiIdent) {
+export function getGame(_, apiIdent) {
     return axios
         .get('/game/' + apiIdent)
         .then(res => {
-            console.log(res.data)
             return res.data.id
         })
 }
 
-// eslint-disable-next-line no-empty-pattern
-export function track({}, {userId, gameId, hours, date}) {
+export function track(_, {userId, gameId, hours, date}) {
     return axios
         .post('time-log', {userId, gameId, hours, date})
         .then(() => {
-    })
+        })
 }

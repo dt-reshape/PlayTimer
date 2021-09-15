@@ -5,16 +5,22 @@
         <v-row justify="center" class="row-left">
           <v-col md="6" style="flex-direction: row">
             <v-row justify="space-between">
-              <v-card color="red" height="160" width="160"  align="center">
-                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black" >{{ numberOfGames }}</v-card-subtitle>
+              <v-card color="red" height="160" width="160" align="center">
+                <v-card-subtitle class="justify-center text-truncate"
+                                 style="font-size: 200%; margin-top: 20%; color: black">{{ numberOfGames }}
+                </v-card-subtitle>
                 <v-card-title class="justify-center">Games</v-card-title>
               </v-card>
               <v-card color="blue" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black">{{ hoursPlayed }}</v-card-subtitle>
+                <v-card-subtitle class="justify-center text-truncate"
+                                 style="font-size: 200%; margin-top: 20%; color: black">{{ hoursPlayed }}
+                </v-card-subtitle>
                 <v-card-title class="justify-center">Hours</v-card-title>
               </v-card>
               <v-card color="green" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black">{{~~(hoursPlayed/24)}}</v-card-subtitle>
+                <v-card-subtitle class="justify-center text-truncate"
+                                 style="font-size: 200%; margin-top: 20%; color: black">{{ ~~(hoursPlayed / 24) }}
+                </v-card-subtitle>
                 <v-card-title class="justify-center">Days</v-card-title>
               </v-card>
             </v-row>
@@ -51,9 +57,10 @@
                     :key="track.title"
                 >
 
-                  <p>You spend {{track.hours > 1 ? track.hours + ' hours' : 1 +' hour'}} on {{gamesName[index] ? gamesName[index].name : ''}}</p>
+                  <p>You spend {{ track.hours > 1 ? track.hours + ' hours' : 1 + ' hour' }} on
+                    {{ gamesName[index] ? gamesName[index].name : '' }}</p>
                   <v-list-item-content align="right">
-                    <p>{{moment(track.date).format('YYYY-MM-DD')}}</p>
+                    <p>{{ moment(track.date).format('YYYY-MM-DD') }}</p>
                   </v-list-item-content>
                 </v-list-item>
                 <v-divider :key="track.id" v-if="index + 1 < lastGames.length"></v-divider>
@@ -75,7 +82,7 @@
           </v-img>
         </v-card>
 
-        <v-card-title>Achievements: {{subscriptions.length}}</v-card-title>
+        <v-card-title>Achievements: {{ subscriptions.length }}</v-card-title>
         <v-card style="background-color: white" v-if="!subscriptions.length">
           <v-card-title>No achievements.</v-card-title>
         </v-card>
@@ -94,7 +101,7 @@
             <span class="white--text text-h5">{{ sub.login }}</span>
           </v-avatar>
         </v-toolbar>
-        <v-card-title>Subscriptions: {{achievements.length}}</v-card-title>
+        <v-card-title>Subscriptions: {{ achievements.length }}</v-card-title>
         <v-card style="background-color: white" v-if="!achievements.length">
           <v-card-title>No subscriptions.</v-card-title>
         </v-card>
@@ -161,7 +168,12 @@ export default {
     };
   },
   async mounted() {
-    ({login: this.login, profilePic: this.profilePic, achievements: this.achievements, friends: this.subscriptions} = await this.getUserData(this.id))
+    ({
+      login: this.login,
+      profilePic: this.profilePic,
+      achievements: this.achievements,
+      friends: this.subscriptions
+    } = await this.getUserData(this.id))
     this.calendar = await this.getUserCalendar({
       id: this.id,
       fromDate: moment().subtract(1, 'year').subtract(1, 'month').format('YYYY-MM-DD'),
@@ -169,7 +181,7 @@ export default {
     });
     ({hours: this.hoursPlayed, games: this.numberOfGames} = await this.getUserStatistics(this.id))
     this.lastGames = await this.getLastUserGames(this.id)
-    for(let game of this.lastGames) {
+    for (let game of this.lastGames) {
       this.gamesName.push(await this.getGamesDetails(game.apiIdent))
     }
   },

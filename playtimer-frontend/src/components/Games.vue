@@ -154,7 +154,6 @@ export default {
   },
   watch: {
     searchTitle(value) {
-      console.log(value)
       this.page = 1;
       this.getGamesList({search: value, page: this.page})
     }

@@ -74,14 +74,14 @@ export default {
     confirmPassword: {required, sameAsPassword: sameAs('password')},
   },
   computed: {
-    emailErrors () {
+    emailErrors() {
       const errors = []
       if (!this.$v.email.$dirty) return errors
       !this.$v.email.required && errors.push('Required.')
       !this.$v.email.email && errors.push('Enter e-mail.')
       return errors
     },
-    usernameErrors () {
+    usernameErrors() {
       const errors = []
       if (!this.$v.username.$dirty) return errors
       !this.$v.username.required && errors.push('Required.')
@@ -89,7 +89,7 @@ export default {
       !this.$v.username.maxLength && errors.push('Username is too long.')
       return errors
     },
-    passwordErrors () {
+    passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) return errors
       !this.$v.password.required && errors.push('Required.')
@@ -97,7 +97,7 @@ export default {
       !this.$v.password.maxLength && errors.push('Password is too long.')
       return errors
     },
-    confirmPasswordErrors () {
+    confirmPasswordErrors() {
       const errors = []
       if (!this.$v.confirmPassword.$dirty) return errors
       !this.$v.confirmPassword.required && errors.push('Required.')
