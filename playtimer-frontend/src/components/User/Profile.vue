@@ -5,16 +5,16 @@
         <v-row justify="center" class="row-left">
           <v-col md="6" style="flex-direction: row">
             <v-row justify="space-between">
-              <v-card color="red" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{ numberOfGames }}</v-card-subtitle>
+              <v-card color="red" height="160" width="160"  align="center">
+                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black" >{{ numberOfGames }}</v-card-subtitle>
                 <v-card-title class="justify-center">Games</v-card-title>
               </v-card>
               <v-card color="blue" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{ hoursPlayed }}</v-card-subtitle>
+                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black">{{ hoursPlayed }}</v-card-subtitle>
                 <v-card-title class="justify-center">Hours</v-card-title>
               </v-card>
               <v-card color="green" height="160" width="160" align="center">
-                <v-card-subtitle class="justify-center" style="font-size: 300%; margin-top: 20%; color: black">{{~~(hoursPlayed/24)}}</v-card-subtitle>
+                <v-card-subtitle class="justify-center text-truncate" style="font-size: 200%; margin-top: 20%; color: black">{{~~(hoursPlayed/24)}}</v-card-subtitle>
                 <v-card-title class="justify-center">Days</v-card-title>
               </v-card>
             </v-row>
