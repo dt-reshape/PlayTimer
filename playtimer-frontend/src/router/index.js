@@ -13,19 +13,19 @@ const routes = [
             {
                 path: '/profile',
                 name: 'Profile',
-                component: () => import('@/components/User/Profile'),
+                component: () => import('../views/ProfileView'),
                 beforeEnter: authGuard,
             },
             {
                 path: '/games',
                 name: 'Games',
-                component: () => import('../components/Games'),
+                component: () => import('../views/GamesView'),
                 beforeEnter: authGuard,
             },
             {
                 path: '/releases',
                 name: 'Releases',
-                component: () => import('../components/Releases'),
+                component: () => import('../views/ReleasesView'),
                 beforeEnter: authGuard,
             },
         ]

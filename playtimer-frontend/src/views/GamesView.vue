@@ -66,7 +66,7 @@
                   Platforms:
                 </h3>
                 <li v-for="plaform in gamesDetails.platforms" md="3" :key="plaform.id" style="padding-left: 2%">
-                  {{ plaform.platform.name }}
+                  {{ plaform.platform.name}}
                 </li>
                 <h3 style="padding-left: 1%">
                   {{gamesDetails.metacritic ? "Metacritic Score: " + gamesDetails.metacritic : ''}}
